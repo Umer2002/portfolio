@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/super-classes.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/mobile.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <title>Umer Zafar</title>
 </head>
 
@@ -586,7 +587,7 @@
           <div class="col-lg-8">
             <div id="form_result"></div>
 
-            <form id="contactpage" method="POST" class="contact-form wow slideInRight text-lg-left text-center">
+            <form id="contactpage" method="POST" action="contact-form.php" class="contact-form wow slideInRight text-lg-left text-center" onsubmit="submitForm(event)">
               <div class="row">
                 <div class="col-lg-6 col-md-6">
                   <div class="form-group mb-0">
@@ -1252,39 +1253,7 @@
                 satisfaction and drive engagement in your projects.
               </p>
               <h4 class="comment-title">LEAVE A COMMENT</h4>
-              <form class="contact-form blog-model-form">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="text" placeholder="Name" name="name" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="email" placeholder="Email" />
-                      <small class="form-text text-muted"></small>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="tel" placeholder="Phone" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="text" placeholder="Subject" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-group mb-0">
-                      <textarea placeholder="Message" rows="3" name="comments"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="appointment-btn">Submit</button>
-              </form>
+             
             </div>
           </div>
         </div>
@@ -1352,39 +1321,7 @@
                 performance and credibility.
               </p>
               <h4 class="comment-title">LEAVE A COMMENT</h4>
-              <form class="contact-form blog-model-form">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="text" placeholder="Name" name="name" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="email" placeholder="Email" />
-                      <small class="form-text text-muted"></small>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="tel" placeholder="Phone" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="text" placeholder="Subject" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-group mb-0">
-                      <textarea placeholder="Message" rows="3" name="comments"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="appointment-btn">Submit</button>
-              </form>
+              
             </div>
           </div>
         </div>
@@ -1453,39 +1390,6 @@
                 devices.
               </p>
               <h4 class="comment-title">LEAVE A COMMENT</h4>
-              <form class="contact-form blog-model-form">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="text" placeholder="Name" name="name" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="email" placeholder="Email" />
-                      <small class="form-text text-muted"></small>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="tel" placeholder="Phone" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group mb-0">
-                      <input type="text" placeholder="Subject" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-group mb-0">
-                      <textarea placeholder="Message" rows="3" name="comments"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="appointment-btn">Submit</button>
-              </form>
             </div>
           </div>
         </div>
@@ -1497,6 +1401,7 @@
   <script>
     new WOW().init();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src=" https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
   <script src="assets/js/popper.min.js"></script>
@@ -1628,6 +1533,48 @@
       el.click();
       el.remove();
     }
+  </script>
+  <script>
+    function submitForm(event) {
+        event.preventDefault();
+    
+        const form = document.getElementById("contactpage");
+        const formData = new FormData(form);
+    
+        fetch("contact-form.php", {
+            method: "POST",
+            body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'Success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email Sent',
+                    text: data.msg,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.reload(); // Reload the page after confirmation
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Submission Failed',
+                    text: data.msg,
+                    confirmButtonText: 'Try Again'
+                });
+            }
+        })
+        .catch((error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred. Please try again later.',
+                confirmButtonText: 'OK'
+            });
+            console.error(error);
+        });
+    }  
   </script>
 </body>
 
